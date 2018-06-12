@@ -1,5 +1,4 @@
-const bindingPath = '../build/Release/callbacks';
-const binding = require(bindingPath);
+const binding = require('../build/Release/callbacks');
 
 const callback = function cbackfn(desiredRecv) {
   return function cb() {
@@ -7,7 +6,7 @@ const callback = function cbackfn(desiredRecv) {
   };
 };
 
-describe('callbacks module', () => {
+describe('callbacks bindings', () => {
   it(`callback called with 'hello world' argument`, () => {
     const mockCallback = jest.fn();
     binding.runCallback(mockCallback);
