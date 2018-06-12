@@ -15,7 +15,8 @@
     "configure": "node-gyp configure"
   },
   "jest": {
-    "verbose": true
+    "verbose": true,
+    "testEnvironment": "jest-environment-node"
   },
   "devDependencies": {
     "eslint-plugin-import": "^2.12.0",

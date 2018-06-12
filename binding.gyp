@@ -7,6 +7,10 @@
     {
       "target_name": "function_arguments",
       "sources": ["./src/function_arguments.c"]
+    },
+    {
+      "target_name": "callbacks",
+      "sources": ["./src/callbacks.c"]
     }
   ]
 }
