@@ -1,8 +1,3 @@
-#ifndef NAPI_SRC_COMMON_H_
-#define NAPI_SRC_COMMON_H_
-
-#include <node_api.h>
-
 #define GET_AND_THROW_LAST_ERROR(env)                               \
   do                                                                \
   {                                                                 \
@@ -10,7 +5,7 @@
     napi_get_last_error_info((env), &error_info);                   \
     bool is_pending;                                                \
     napi_is_exception_pending((env), &is_pending);                  \
-    /* Don't throw if exception is already pending */               \
+    /* If an exception is already pending, don't rethrow it */      \
     if (!is_pending)                                                \
     {                                                               \
       const char *error_message = error_info->error_message != NULL \
@@ -20,21 +15,39 @@
     }                                                               \
   } while (0)
 
-#define NAPI_CALL_BASE(env, the_call, ret_value) \
-  do                                             \
-  {                                              \
-    if ((the_call) != napi_ok)                   \
-    {                                            \
-      GET_AND_THROW_LAST_ERROR((env));           \
-      return ret_value;                          \
-    }                                            \
+#define NAPI_CALL_BASE(env, the_call, ret_val) \
+  do                                           \
+  {                                            \
+    if ((the_call) != napi_ok)                 \
+    {                                          \
+      GET_AND_THROW_LAST_ERROR((env));         \
+      return ret_val;                          \
+    }                                          \
   } while (0)
 
-#define NAPI_CALL(env, the_call) NAPI_CALL_BASE(env, the_call, NULL)
+// Returns NULL if the_call doesn't return napi_ok.
+#define NAPI_CALL(env, the_call) \
+  NAPI_CALL_BASE(env, the_call, NULL)
 
-#define DECLARE_NAPI_PROPERTY(name, func)       \
-  {                                             \
-    (name), 0, (func), 0, 0, 0, napi_default, 0 \
-  }
+#define NAPI_ASSERT_BASE(env, assertion, message, ret_val) \
+  do                                                       \
+  {                                                        \
+    if (!(assertion))                                      \
+    {                                                      \
+      napi_throw_error(                                    \
+          (env),                                           \
+          NULL,                                            \
+          "assertion (" #assertion ") failed: " message);  \
+      return ret_val;                                      \
+    }                                                      \
+  } while (0)
 
-#endif
+// Returns NULL on failed assertion.
+// This is meant to be used inside napi_callback methods.
+#define NAPI_ASSERT(env, assertion, message) \
+  NAPI_ASSERT_BASE(env, assertion, message, NULL)
+
+// Returns empty on failed assertion.
+// This is meant to be used inside functions with void return type.
+#define NAPI_ASSERT_RETURN_VOID(env, assertion, message) \
+  NAPI_ASSERT_BASE(env, assertion, message, NAPI_RETVAL_NOTHING)

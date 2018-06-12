@@ -1,9 +1,19 @@
-const addon = require("../build/Release/hello_world");
+const bindingPath = '../build/Release/hello_world';
+const binding = require(bindingPath);
 
-describe("hello world module", () => {
+describe('hello world module', () => {
   it(`hello() prints 'world'`, () => {
-    const result = addon.hello();
-    const expected = "world";
-    expect(result).toBe(expected);
+    const result = binding.hello();
+    const expected = 'world';
+    expect(result).toEqual(expected);
+  });
+
+  it(`doesn't crash on multiple loading of the same module`, () => {
+    delete require.cache[bindingPath];
+    const rebinding = require(bindingPath);
+    const result = rebinding.hello();
+    const expected = 'world';
+    expect(result).toEqual(expected);
+    expect(rebinding.hello).toStrictEqual(binding.hello);
   });
 });
