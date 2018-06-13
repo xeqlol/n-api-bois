@@ -27,6 +27,10 @@
     {
       "target_name": "factory_wrap",
       "sources": ["./src/factory_wrap/binding.cc", "./src/factory_wrap/myobject.cc"]
+    },
+    {
+      "target_name": "passing_wrapped",
+      "sources": [ "./src/passing_wrapped/binding.cc", "./src/passing_wrapped/myobject.cc" ]
     }
   ]
 }
