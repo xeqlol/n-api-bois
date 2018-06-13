@@ -23,6 +23,10 @@
     {
       "target_name": "object_wrap",
       "sources": ["./src/object_wrap/binding.cc", "./src/object_wrap/myobject.cc"]
+    },
+    {
+      "target_name": "factory_wrap",
+      "sources": ["./src/factory_wrap/binding.cc", "./src/factory_wrap/myobject.cc"]
     }
   ]
 }
