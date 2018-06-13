@@ -19,6 +19,10 @@
     {
       "target_name": "function_factory",
       "sources": ["./src/function_factory.c"]
+    },
+    {
+      "target_name": "object_wrap",
+      "sources": ["./src/object_wrap/binding.cc", "./src/object_wrap/myobject.cc"]
     }
   ]
 }
