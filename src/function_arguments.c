@@ -1,7 +1,8 @@
 #include "common.h"
 #include <node_api.h>
 
-napi_value Add(napi_env env, napi_callback_info info) {
+napi_value Add(napi_env env, napi_callback_info info)
+{
   size_t argc = 2;
   napi_value args[2];
   NAPI_CALL(env, napi_get_cb_info(env, info, &argc, args, NULL, NULL));
@@ -14,8 +15,8 @@ napi_value Add(napi_env env, napi_callback_info info) {
   napi_valuetype valuetype1;
   NAPI_CALL(env, napi_typeof(env, args[1], &valuetype1));
 
-  NAPI_ASSERT(env, valuetype0 == napi_number && valuetype1 == napi_number, 
-    "Wrong argument type, expected number.");
+  NAPI_ASSERT(env, valuetype0 == napi_number && valuetype1 == napi_number,
+              "Wrong argument type, expected number.");
 
   double value0;
   NAPI_CALL(env, napi_get_value_double(env, args[0], &value0));
@@ -29,7 +30,8 @@ napi_value Add(napi_env env, napi_callback_info info) {
   return sum;
 }
 
-napi_value Init(napi_env env, napi_value exports) {
+napi_value Init(napi_env env, napi_value exports)
+{
   napi_property_descriptor desc = {"add", 0, Add, 0, 0, 0, napi_default, 0};
   NAPI_CALL(env, napi_define_properties(env, exports, 1, &desc));
   return exports;

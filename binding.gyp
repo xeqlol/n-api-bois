@@ -15,6 +15,10 @@
     {
       "target_name": "object_factory",
       "sources": ["./src/object_factory.c"]
+    },
+    {
+      "target_name": "function_factory",
+      "sources": ["./src/function_factory.c"]
     }
   ]
 }
