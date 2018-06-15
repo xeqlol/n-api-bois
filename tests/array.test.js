@@ -38,6 +38,18 @@ describe("array bindings", () => {
 
   it("NewWIthLength() returns object that is instance of Array", () => {
     expect(binding.NewWithLength(0)).toBeType("array");
+    expect(binding.NewWithLength(1)).toBeType("array");
+    expect(binding.NewWithLength(4294967295)).toBeType("array");
+  });
+
+  it("TestDeleteElement(array, 2) deletes element with index 2 from array", () => {
+    const arr = ["a", "b", "c", "d"];
+
+    expect(arr.length).toBe(4);
+    expect(2 in arr).toBe(true);
+    expect(binding.TestDeleteElement(arr, 2)).toBe(true);
+    expect(arr.length).toBe(4);
+    expect(2 in arr).toBe(false);
   });
 });
 
