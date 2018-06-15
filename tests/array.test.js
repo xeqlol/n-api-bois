@@ -13,4 +13,51 @@ describe("array bindings", () => {
   it(`throws if index out of bounds`, () => {
     expect(() => binding.TestGetElement(array, array.length + 1)).toThrow();
   });
+
+  it("throws if index is not positive", () => {
+    expect(() => binding.TestGetElement(array, -2)).toThrow();
+  });
+
+  it("TestGetElement(index) returns element with passed index", () => {
+    array.forEach((el, index) => {
+      expect(binding.TestGetElement(array, index)).toEqual(el);
+    });
+  });
+
+  it("New(array) returns same passed array", () => {
+    expect(binding.New(array)).toEqual(array);
+  });
+
+  it("TestHasElement(array, 0) returns true if array has element with index 0", () => {
+    expect(binding.TestHasElement(array, 0)).toBe(true);
+  });
+
+  it("TestHasElement(array, array.length + 1) returns false index is out of bounds", () => {
+    expect(binding.TestHasElement(array, array.length + 1)).toBe(false);
+  });
+
+  it("NewWIthLength() returns object that is instance of Array", () => {
+    expect(binding.NewWithLength(0)).toBeType("array");
+  });
+});
+
+expect.extend({
+  toBeType(received, argument) {
+    const initialType = typeof received;
+    const type =
+      initialType === "object"
+        ? Array.isArray(received)
+          ? "array"
+          : initialType
+        : initialType;
+    return type === argument
+      ? {
+          message: () => `expected ${received} to be type ${argument}`,
+          pass: true
+        }
+      : {
+          message: () => `expected ${received} to be type ${argument}`,
+          pass: false
+        };
+  }
 });
