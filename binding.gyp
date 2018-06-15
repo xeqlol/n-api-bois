@@ -31,6 +31,10 @@
     {
       "target_name": "passing_wrapped",
       "sources": [ "./src/passing_wrapped/binding.cc", "./src/passing_wrapped/myobject.cc" ]
+    },
+    {
+      "target_name": "array",
+      "sources": [ "./src/array.c" ]
     }
   ]
 }
