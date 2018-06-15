@@ -11,6 +11,6 @@ describe("array bindings", () => {
     ["world", "node", "abi"]
   ];
   it(`throws if index out of bounds`, () => {
-    expect(binding.TestGetElement(array, array.length + 1)).toThrow();
+    expect(() => binding.TestGetElement(array, array.length + 1)).toThrow();
   });
 });
