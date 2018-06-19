@@ -35,6 +35,10 @@
     {
       "target_name": "array",
       "sources": [ "./src/array.c" ]
+    },
+    {
+      "target_name": "async",
+      "sources": [ "./src/async.cc" ]
     }
   ]
 }
